@@ -9,7 +9,8 @@ api_key = open('/home/dahlberg/PyBites/maxtemp/.tomorrow-io.api-key').read()
 
 print(api_key)
 
-url = "https://api.tomorrow.io/v4/weather/forecast?location=lat,long&apikey=api_key"
+url = f"https://api.tomorrow.io/v4/weather/forecast?\
+location={lat},{long}&apikey={api_key}"
 
 print(url)
 
