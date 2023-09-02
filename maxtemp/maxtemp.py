@@ -12,11 +12,16 @@ api_key = api_key.rstrip()
 url = f"https://api.tomorrow.io/v4/weather/forecast?\
 location={lat},{lon}&apikey={api_key}"
 
-
 headers = {"accept": "application/json"}
 
 response = requests.get(url, headers=headers)
 
 data = json.loads(response.text)
 
-print(data)
+tMax = 0
+for day in data['timelines']['daily']:
+    print(day['values']['temperatureMax'])
+    if tMax < day['values']['temperatureMax']:
+        tMax = day['values']['temperatureMax']
+
+print(tMax)
