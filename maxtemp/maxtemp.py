@@ -4,8 +4,8 @@ import requests
 import json
 
 
-def c2F(celsius: float) -> "float":
-    return ((celsius * 1.8) + 32)
+def celsius_to_fahrenheit(value: float) -> float:
+    return ((value * 1.8) + 32)
 
 
 lat = 40.99460211262978
@@ -29,6 +29,6 @@ for day in data['timelines']['daily']:
         tMax = day['values']['temperatureMax']
         tMaxDay = day['time']
 
-temp = c2F(tMax)
+temp = celsius_to_fahrenheit(tMax)
 print(temp)
 print(tMaxDay)

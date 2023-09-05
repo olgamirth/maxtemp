@@ -9,6 +9,8 @@ readme = "README.md"
 python = "^3.11"
 requests = "^2.31.0"
 
+[tool.poetry.scripts]
+maxtemp = "maxtemp.__main__:main"
 
 [build-system]
 requires = ["poetry-core"]
