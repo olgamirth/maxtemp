@@ -25,6 +25,8 @@ data = json.loads(response.text)
 
 tMax = 0
 for day in data['timelines']['daily']:
+    print(day['values']['temperatureMax'])
+    print(day['time'])
     if tMax < day['values']['temperatureMax']:
         tMax = day['values']['temperatureMax']
         tMaxDay = day['time']
