@@ -1,36 +1,50 @@
 #!/usr/bin/env python
+"""
+
+"""
 
 import requests
 import json
+import logging
 
 
 def celsius_to_fahrenheit(value: float) -> float:
     return ((value * 1.8) + 32)
 
+class VirtualCrossing_API:
+    _forecast_url_template = ("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{},{}?key={}")
 
-lat = 40.99460211262978
-lon = -77.56459180420583
+    def __init__(self, api_key: str) -> None:
+        self.api_key = api_key
 
-api_key = open('/home/dahlberg/PyBites/maxtemp/.tomorrow-io.api-key').read()
-api_key = api_key.rstrip()
+    def forecast(self, location: tuple[float, float]) -> dict[list]:
+        url = self._forecast_url_template.format(*location, self.api_key)
+        headers = {"accept": "application/json"}
 
-url = f"https://api.tomorrow.io/v4/weather/forecast?\
-location={lat},{lon}&apikey={api_key}"
+        response = requests.get(url, headers)
+        response.raise_for_status()
 
-headers = {"accept": "application/json"}
+        return response.json()
 
-response = requests.get(url, headers=headers)
+    @staticmethod
+    def max_temp(forecast: dict[list]) -> None:
+        tMax = 0
+        for day in forecast["days"]:
+            print(day["tempmax"])
 
-data = json.loads(response.text)
+ 
 
-tMax = 0
-for day in data['timelines']['daily']:
-    print(day['values']['temperatureMax'])
-    print(day['time'])
-    if tMax < day['values']['temperatureMax']:
-        tMax = day['values']['temperatureMax']
-        tMaxDay = day['time']
 
-temp = celsius_to_fahrenheit(tMax)
-print(temp)
-print(tMaxDay)
+
+####
+#tMax = 0
+#for day in data['timelines']['daily']:
+#    print(day['values']['temperatureMax'])
+#    print(day['time'])
+#    if tMax < day['values']['temperatureMax']:
+#        tMax = day['values']['temperatureMax']
+#        tMaxDay = day['time']
+#
+#temp = celsius_to_fahrenheit(tMax)
+#print(temp)
+#print(tMaxDay)

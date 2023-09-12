@@ -8,6 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 requests = "^2.31.0"
+logging = "^0.4.9.6"
 
 [tool.poetry.scripts]
 maxtemp = "maxtemp.__main__:main"
